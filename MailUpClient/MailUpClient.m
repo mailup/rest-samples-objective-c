@@ -20,8 +20,8 @@
         self.logonEndpoint = @"https://services.mailup.com/Authorization/OAuth/LogOn";
         self.authorizationEndpoint = @"https://services.mailup.com/Authorization/OAuth/Authorization";
         self.tokenEndpoint = @"https://services.mailup.com/Authorization/OAuth/Token";
-        self.consoleEndpoint = @"https://services.mailup.com/API/v1/Rest/ConsoleService.svc";
-        self.mailstatisticsEndpoint = @"https://services.mailup.com/API/v1/Rest/MailStatisticsService.svc";
+        self.consoleEndpoint = @"https://services.mailup.com/API/v1.1/Rest/ConsoleService.svc";
+        self.mailstatisticsEndpoint = @"https://services.mailup.com/API/v1.1/Rest/MailStatisticsService.svc";
     }
     return self;
 }
