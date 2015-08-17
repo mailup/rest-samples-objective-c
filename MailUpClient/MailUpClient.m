@@ -79,13 +79,17 @@
 
 -(NSString *)retreiveAccessTokenWithLogin:(NSString *)login password:(NSString *)password error:(NSError**)error
 {
-    NSString *url = self.authorizationEndpoint;
-    url = [url stringByAppendingFormat:@"?client_id=%@&client_secret=%@&response_type=code&username=%@&password=%@",
+    NSString *url = self.tokenEndpoint;
+    NSString *params = [NSString stringWithFormat:@"grant_type=password&client_id=%@&client_secret=%@&username=%@&password=%@",
         self.clientId, self.clientSecret, login, password];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setURL:[NSURL URLWithString:url]];
-    [request setHTTPMethod:@"GET"];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:[[[NSString stringWithFormat:@"%@:%@", self.clientId, self.clientSecret] 
+        dataUsingEncoding:NSUTF8StringEncoding] base64Encoding] forHTTPHeaderField:@"Authorization"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:[params dataUsingEncoding:NSUTF8StringEncoding]];
     
     NSHTTPURLResponse *response = nil;
     NSError *err;
@@ -110,9 +114,10 @@
     if([object isKindOfClass:[NSDictionary class]])
     {
         NSDictionary *root = object;
-        NSString *code = [root objectForKey:@"code"];
+        self.accessToken = [root objectForKey:@"access_token"];
+        self.refreshToken = [root objectForKey:@"refresh_token"];
         
-        return [self retreiveAccessTokenWithCode:code error:error];
+        return self.accessToken;
     }
     
     return nil;
