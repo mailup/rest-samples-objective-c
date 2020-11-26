@@ -24,7 +24,7 @@ This project encloses a short list of pre definied samples describing some of th
 * Sample 1   - Importing recipients into a new group
 * Sample 2   - Unsubscribing a recipient from a group
 * Sample 3   - Updating a recipient information
-* Sample 4   - Creating a message from an exisiting template
+* Sample 4   - Creating a message from an exisiting template (deeprecated)
 * Sample 5   - Building a message with images and attachements
 * Sample 6   - Tagging an email message
 * Sample 7   - Sending an email message
